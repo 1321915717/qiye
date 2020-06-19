@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyc.qiye.mapper.LunboMapper">
+
+    <select id="select" resultType="Lunbo">
+        select * from lunbo
+    </select>
+    <select id="selectByImage" resultType="Lunbo">
+        select * from lunbo where  g_type='image'
+    </select>
+    <select id="selectByVideo" resultType="Lunbo">
+        select * from lunbo where  g_type='video'
+    </select>
+
+    <delete id="delete">
+        delete  from  lunbo
+    </delete>
+
+    <insert id="insert"  parameterType="java.util.List">
+        insert into  lunbo values
+        <foreach collection="list" item="a" separator=","  >
+                (null ,#{a.gUrl},#{a.gType})
+        </foreach>
+    </insert>
+
+
+</mapper>

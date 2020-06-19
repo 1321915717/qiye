@@ -1,0 +1,44 @@
+spring:
+ datasource:
+  druid:
+      url: jdbc:mysql://localhost:3306/qiye?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+      initial-size: 8
+      min-idle: 1
+      max-active: 20
+      time-between-eviction-runsMillis: 60000
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+ servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+ http:
+   encoding:
+     charset: utf-8
+     force: true
+     enabled: true
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+aliyun:  #oss上传路径
+  oss:
+    endpoint: http://oss-cn-beijing.aliyuncs.com
+    accessKeyId: # oss的accessKeyId
+    accessKeySecret: # oss的accessKeySecret
+    bucketName: ppt-download
+    maxSize: 10
+    #callback: http://localhost:8090/aliyun/oss/callback
+    dir:  #目录
+      avatar: banyunAvatar
+      content: banyunImg
+      video: banyunVideo
+      lun: qiyelunbo
+
+
+server:
+  port: 8090
+  max-http-header-size: 2MB

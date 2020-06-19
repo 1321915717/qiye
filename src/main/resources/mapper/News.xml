@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyc.qiye.mapper.NewsMapper">
+
+    <select id="select" resultType="news">
+        select * from news  ORDER BY n_date  desc
+    </select>
+    <select id="search" parameterType="java.lang.String" resultType="news">
+        select * from  news where  n_title LIKE  '%${values}%'  ORDER BY n_date  desc
+    </select>
+
+    <select id="selectByTypeTop" parameterType="java.lang.String" resultType="news" >
+        SELECT  * FROM  news where  n_type=#{values } ORDER BY n_date  desc
+    </select>
+    <select id="selectByNid" parameterType="int" resultType="news">
+        select  * from  news where  n_id=#{values }  ORDER BY n_date  desc
+    </select>
+    <insert id="insert" parameterType="news">
+        insert  into news  values (null ,#{nTitle},#{nDate},#{nContent},#{nImg},#{nType})
+    </insert>
+
+    <update id="update" parameterType="news">
+        update  news set    n_title=#{nTitle}, n_content=#{nContent},n_date=#{nDate},n_img=#{nImg},n_type=#{nType} where  n_id=#{nId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+    delete   from  news where  n_id=#{values }
+    </delete>
+
+
+
+
+</mapper>

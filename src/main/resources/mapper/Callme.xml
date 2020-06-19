@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyc.qiye.mapper.CallMeMapper">
+
+
+    <insert id="insert" parameterType="callme">
+        insert  into  callme values (null ,#{cName},#{cCompany},#{cIphone},#{cInfo},#{cDate})
+    </insert>
+    <select id="select" resultType="callme">
+        select  * from  callme order  by  c_date  desc
+    </select>
+    <select id="search" parameterType="java.lang.String" resultType="callme">
+        SELECT * from callme where  c_name LIKE '%${values}%'  or c_company like'%${values}%' or c_iphone LIKE '%${values}%'
+        order  by  c_date  desc
+    </select>
+    <delete id="delete" >
+        delete  from  callme where c_id in
+        <foreach collection="array" separator="," open="(" close=")" item="item"  >
+            #{item}
+
+        </foreach>
+    </delete>
+
+
+</mapper>

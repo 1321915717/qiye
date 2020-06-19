@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyc.qiye.mapper.IntroduceMapper">
+    
+    <update id="insertIntroduce" parameterType="java.lang.String">
+           update  introduce set introduce=#{values } where  id=1
+    </update>
+    <update id="insertEIntroduce" parameterType="java.lang.String">
+           update  introduce set eintroduce=#{values } where  id=1
+    </update>
+    <update id="insertCall" parameterType="java.lang.String">
+           update  introduce set calls=#{values } where  id=1
+    </update>
+    <update id="insertECall" parameterType="java.lang.String">
+           update  introduce set ecall=#{values } where  id=1
+    </update>
+
+    <select id="select" resultType="introduce">
+        select  * from  introduce
+    </select>
+
+ 
+
+
+</mapper>

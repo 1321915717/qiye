@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyc.qiye.mapper.GoodsMapper">
+
+        <resultMap id="goodsMap" type="goods">
+            <id column="g_id" property="gId"/>
+            <result column="g_video" property="gVideo"/>
+            <result property="gLun" column="g_lun"/>
+            <result column="g_img" property="gImg"/>
+            <result column="g_title" property="gTitle"/>
+            <result column="g_content" property="gContent"/>
+            <result column="g_date"  property="gDate"/>
+            <result column="g_type" property="gType"/>
+            <association property="category" javaType="category">
+                <id column="c_id" property="cId"/>
+                <result column="c_name"  property="cName"/>
+            </association>
+        </resultMap>
+
+    <select id="select" resultMap="goodsMap" >
+        SELECT * from  goods g ,category c WHERE g.c_id=c.c_id  order by g_date desc
+    </select>
+    <select id="selectById" parameterType="int" resultType="int">
+        select  count(g_id) from  goods where  c_id=#{values }
+    </select>
+
+    <select id="selectByGid" parameterType="int" resultMap="goodsMap">
+      SELECT * from  goods g ,category c WHERE g.c_id=c.c_id  and  g.g_id=#{values }
+    </select>
+
+    <select id="selectByType" parameterType="goods" resultMap="goodsMap">
+        select  * from goods g ,category c
+        where g.c_id=c.c_id
+        <if test="gTitle!=null and gTitle!=''">
+          and   g.g_title like '%${gTitle}%'
+        </if>
+        <if test="cId!=null">
+            and c.c_id=#{cId}
+        </if>
+
+        order by g.g_date desc
+
+    </select>
+
+
+    <select id="selectByName" parameterType="java.lang.String" resultType="goods">
+        select  * from  goods where  g_title like '%${name}%' and g_type=#{type}  order by g_date desc
+    </select>
+
+    <select id="selectByTypeTop" parameterType="java.lang.String" resultType="goods" >
+        SELECT  * FROM  goods where  g_type=#{values } ORDER BY g_date  desc limit 0,4
+    </select>
+    <insert id="insert" parameterType="goods">
+        insert  into  goods values (null ,#{gVideo},#{gLun},#{gImg},#{gTitle},#{gContent},#{gDate},#{cId},#{gType})
+    </insert>
+    <select id="selectByCAndCid" parameterType="goods" resultType="goods">
+        select  * from  goods where  g_type=#{gType}
+        <if test="cId!=null">
+            and  c_id=#{cId}
+        </if>
+
+         order by g_date desc
+           </select>
+
+    <update id="update" parameterType="goods">
+        update  goods set  g_video=#{gVideo},g_lun=#{gLun},g_img=#{gImg},g_title=#{gTitle},
+        g_content=#{gContent},g_date=#{gDate},c_id=#{cId},g_type=#{gType} where  g_id=#{gId}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete  from goods where  g_id=#{values }
+    </delete>
+</mapper>
